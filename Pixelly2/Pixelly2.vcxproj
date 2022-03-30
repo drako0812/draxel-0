@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gpu.cpp" />
     <ClCompile Include="machine.cpp" />
     <ClCompile Include="Pixelly2.cpp" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gpu.h" />
     <ClInclude Include="machine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
