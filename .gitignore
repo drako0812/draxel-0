@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+/.vs/Pixelly2
+/Pixelly2/vcpkg_installed/x64-windows
+/Pixelly2/x64/Debug
+/Pixelly2/allegro.log
+/Pixelly2/Pixelly2.vcxproj.filters
+/Pixelly2/Pixelly2.vcxproj.user
+/x64/Debug
