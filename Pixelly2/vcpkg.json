@@ -5,6 +5,10 @@
   "dependencies": [
     "fmt",
     "effolkronium-random",
-    "allegro5"
+    "allegro5",
+    {
+      "name": "angelscript",
+      "features": [ "addons" ]
+    }
   ]
 }

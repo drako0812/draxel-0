@@ -97,7 +97,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -113,7 +113,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -129,7 +129,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -145,7 +145,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -159,15 +159,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gpu.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="machine.cpp" />
     <ClCompile Include="Pixelly2.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\datetime\datetime.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptany\scriptany.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptarray\scriptarray.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptbuilder\scriptbuilder.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptdictionary\scriptdictionary.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scripthandle\scripthandle.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scripthelper\scripthelper.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptmath\scriptmath.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptstdstring\scriptstdstring.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\scriptstdstring\scriptstdstring_utils.cpp" />
+    <ClCompile Include="vcpkg_installed\x64-windows\x64-windows\include\angelscript\weakref\weakref.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
+    <None Include="data\scripts\boot.as">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base.h" />
     <ClInclude Include="gpu.h" />
+    <ClInclude Include="input.h" />
     <ClInclude Include="machine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
