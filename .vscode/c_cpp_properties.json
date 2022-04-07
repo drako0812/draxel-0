@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/deps/allegro5/include",
+                "${workspaceFolder}/deps/allegro5/addons/font",
+                "${workspaceFolder}/PixellyLib/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++20",
+            "mergeConfigurations": true
+        }
+    ],
+    "version": 4
+}
