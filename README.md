@@ -1,3 +1,9 @@
+[![GitHub Contributors](https://img.shields.io/github/contributors/drako0812/Pixelly)](https://github.com/drako0812/Pixelly/contributors)
+[![GitHub Releases Downloads](https://img.shields.io/github/downloads/drako0812/Pixelly/total)](https://github.com/drako0812/Pixelly/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/drako0812/Pixelly)](https://github.com/drako0812/Pixelly/stargazers)
+[![GitHub commits since tagged version](https://img.shields.io/github/commits-since/drako0812/Pixelly/0.1.0-pre-alpha/master?include_prereleases)](https://github.com/drako0812/Pixelly/commits/master)
+[![License](https://img.shields.io/github/license/drako0812/Pixelly)](LICENSE)
+
 # :video_game: Pixelly
 
 > **NOTE:** *Pixelly* is a WIP name for this project. I would like to come up with a catchier name in the near future. I also have not investigated
