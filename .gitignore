@@ -36,3 +36,7 @@
 .vscode
 build
 build-release.bat
+release-windows-x64
+release-windows-x86
+release-linux-x64
+release-linux-x86
