@@ -5,10 +5,10 @@
   "dependencies": [
     "fmt",
     "effolkronium-random",
-    "allegro5",
     {
-      "name": "angelscript",
-      "features": [ "addons" ]
-    }
+      "name": "lua",
+      "features": ["cpp"]
+    },
+    "sol2"
   ]
 }
