@@ -26,24 +26,20 @@ if(DEFINED VCPKG_ROOT)
     endif()
 endif()
 
-###############################################################################
-#
-# INCLUDE SUBDIRECTORIES
-#
-###############################################################################
-set(WANT_OPENGL ON)
-set(WANT_SHADERS_GL ON)
-set(WANT_FONT ON)
-set(WANT_AUDIO ON)
-set(WANT_IMAGE ON)
-set(WANT_TTF ON)
-set(WANT_COLOR ON)
-set(WANT_PRIMITIVES ON)
-set(WANT_NATIVE_DIALOG ON)
-set(WANT_VIDEO ON)
-set(WANT_MONOLITH ON)
-set(WANT_DOCS OFF)
-add_subdirectory(deps/allegro5)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+set(SOL2_DO_TESTS OFF)
+set(SOL2_DO_EXAMPLES OFF)
+set(SOL2_DOCS OFF)
+set(SOL2_LUA_VERSION "5.4")
+set(SOL2_BUILD_LUA OFF)
+
+add_compile_definitions(
+    SOL_ALL_SAFETIES_ON
+    SOL_USING_CXX_LUA
+)
 
 ###############################################################################
 #
@@ -51,12 +47,22 @@ add_subdirectory(deps/allegro5)
 #
 ###############################################################################
 
-#vcpkg_install_packages()
-#find_package(allegro5 REQUIRED)
-find_package(Threads REQUIRED)
-find_package(Angelscript REQUIRED)
-find_package(effolkronium_random REQUIRED)
-find_package(fmt REQUIRED)
+find_package(effolkronium_random CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(Lua REQUIRED)
+find_package(sol2 CONFIG REQUIRED)
+
+set(SFML_BUILD_WINDOW ON)
+set(SFML_BUILD_GRAPHICS ON)
+set(SFML_BUILD_AUDIO ON)
+set(SFML_BUILD_NETWORK OFF)
+set(SFML_BUILD_DOC OFF)
+set(SFML_BUILD_TEST_SUITE OFF)
+set(SFML_ENABLE_COVERAGE OFF)
+add_subdirectory(deps/SFML)
+
+#add_compile_definitions(_SQ64)
+#add_subdirectory(deps/quirrel)
 
 ###############################################################################
 #
@@ -64,15 +70,40 @@ find_package(fmt REQUIRED)
 #
 ###############################################################################
 
-add_subdirectory(PixellyLib)
-
-add_executable(Pixelly src/Pixelly2.cpp)
+add_executable(Pixelly
+    src/Pixelly2.cpp
+    src/base.cpp
+    src/gpu.cpp
+    src/input.cpp
+    src/machine.cpp
+    src/apis/lua.cpp
+)
+target_include_directories(Pixelly
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+        ${LUA_INCLUDE_DIR}
+)
 target_compile_features(Pixelly PUBLIC cxx_std_20)
 target_compile_features(Pixelly PUBLIC c_std_17)
 target_link_libraries(Pixelly
-    PUBLIC
-        allegro_monolith
-        Angelscript::angelscript
+    PRIVATE
+        sfml-main
+        sfml-system
+        sfml-window
+        sfml-graphics
+        sfml-audio
+        #squirrel::squirrel
+        #squirrel::sqstdlib
+        #squirrel::sqmodules
         effolkronium_random
         fmt::fmt
-        PixellyLib)
+        ${LUA_LIBRARIES}
+        sol2::sol2
+)
+if(CMAKE_BUILD_TYPE EQUAL "Debug")
+    target_compile_definitions(Pixelly PUBLIC PXLY_DEBUG)
+endif()
+
+add_custom_command(TARGET Pixelly POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:Pixelly>/data)

@@ -6,8 +6,9 @@
     "fmt",
     "effolkronium-random",
     {
-      "name": "angelscript",
-      "features": [ "addons" ]
-    }
+      "name": "lua",
+      "features": ["cpp"]
+    },
+    "sol2"
   ]
 }

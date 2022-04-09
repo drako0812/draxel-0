@@ -1,7 +1,7 @@
 #include "gpu.hpp"
+#include "base.hpp"
 #include "machine.hpp"
-#include <allegro5/allegro5.h>
-#include <allegro5/allegro_primitives.h>
+#include <SFML/Graphics.hpp>
 #include <cstring>
 #include <fmt/format.h>
 
@@ -149,37 +149,40 @@ namespace pxly {
 
     char TextMode::GetCursorChar() const { return m_CsrCh; }
 
-    ALLEGRO_COLOR convert(const Color & color) { return al_map_rgb(color.r, color.g, color.b); };
+    sf::Color convert(const Color & color) { return sf::Color(color.r, color.g, color.b, 255); }
 
-    Color convert(const ALLEGRO_COLOR & color) {
-        Color col;
-        al_unmap_rgb(color, &col.r, &col.g, &col.b);
-        return col;
-    }
+    Color convert(const sf::Color & color) { return Color{.r = color.r, .g = color.g, .b = color.b}; }
 
     void TextMode::Render(Machine * machine) {
-        al_hold_bitmap_drawing(true);
+        sf::Sprite charSprite;
+        charSprite.setTexture(machine->m_Font.getTexture(8), true);
+        sf::RectangleShape rectShape({GpuTextureWidth, GpuTextureHeight});
+
         for (int y = 0; y < GpuTextCellsHeight; y++) {
             for (int x = 0; x < GpuTextCellsWidth; x++) {
                 auto ch = GetChar(x, y);
                 int  xx = x * GpuTextureWidth;
                 int  yy = y * GpuTextureHeight;
-                al_draw_filled_rectangle(xx,
-                                         yy,
-                                         xx + GpuTextureWidth,
-                                         yy + GpuTextureHeight,
-                                         convert(machine->m_Gpu.m_Palettes[0].m_Colors[ch.bg]));
-                al_draw_glyph(machine->m_Font, convert(machine->m_Gpu.m_Palettes[0].m_Colors[ch.fg]), xx, yy, ch.ch);
+                auto glyph = machine->m_Font.getGlyph(ch.ch, 8, false);
+                //charSprite.setOrigin(0, 0);
+                charSprite.setPosition(xx, yy + (8 - glyph.bounds.height));
+                charSprite.setTextureRect(glyph.textureRect);
+                charSprite.setColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[ch.fg]));
+                rectShape.setPosition(xx, yy);
+                rectShape.setFillColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[ch.bg]));
+                machine->m_RTex.draw(rectShape);
+                machine->m_RTex.draw(charSprite);
             }
         }
+
         if (IsCursorEnabled()) {
-            al_draw_glyph(machine->m_Font,
-                          convert(machine->m_Gpu.m_Palettes[0].m_Colors[GetCursorColor()]),
-                          GetCursorX() * GpuTextureWidth,
-                          GetCursorY() * GpuTextureHeight,
-                          GetCursorChar());
+            auto glyph = machine->m_Font.getGlyph(GetCursorChar(), 8, false);
+            //charSprite.setOrigin(0, -2);
+            charSprite.setPosition(GetCursorX() * GpuTextureWidth, (GetCursorY() * GpuTextureHeight) + (8 - glyph.bounds.height));
+            charSprite.setTextureRect(glyph.textureRect);
+            charSprite.setColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[GetCursorColor()]));
+            machine->m_RTex.draw(charSprite);
         }
-        al_hold_bitmap_drawing(false);
     }
 
     Gpu::Gpu() : m_Mode{GpuMode::Text}, m_TextMode{} {}
@@ -209,13 +212,13 @@ namespace pxly {
     }
 
     void Gpu::Render(Machine * machine) {
-        al_set_target_bitmap(machine->m_RTex);
         switch (m_Mode) {
         case GpuMode::Text: m_TextMode.Render(machine); break;
         default: pxly_assert(false, fmt::format("Invalid GPU Mode: {}", static_cast<int>(m_Mode))); break;
         }
-        al_set_target_backbuffer(machine->m_Disp);
-        al_draw_bitmap_region(machine->m_RTex, 0, 0, GpuPixelWidth, GpuPixelHeight, 0, 0, 0);
+        machine->m_RTex.display();
+        sf::Sprite rtexspr(machine->m_RTex.getTexture());
+        machine->m_Win.draw(rtexspr);
     }
 
 } // namespace pxly
