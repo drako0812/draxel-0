@@ -14,12 +14,6 @@ name: hosted-ninja-vcpkg-autocache
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Linux Dependencies
-        run: |
-          sudo apt-get install libglx-dev
   job:
     name: ${{ matrix.os }}-${{ github.workflow }}
     runs-on: ${{ matrix.os }}
@@ -34,6 +28,13 @@ jobs:
             vcpkgCommitId: '70fafdf69b4c8029d19e8e6dace7e5695fa180e2'
 
     steps:
+      - name: Install Additional Dependencies
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get install libglx-dev
+          fi
+        shell: bash
+    
       - uses: actions/checkout@v2
         with:
           submodules: true
