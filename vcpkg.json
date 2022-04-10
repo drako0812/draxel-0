@@ -12,6 +12,7 @@
     "sol2",
     "boost-predef",
     "teemo",
-    "zlib"
+    "zlib",
+    "opengl"
   ]
 }
