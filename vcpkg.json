@@ -14,5 +14,10 @@
     "teemo",
     "zlib",
     "opengl"
+    {
+      "name": "glad",
+      "features": ["glx"],
+      "platform": "linux"
+    }
   ]
 }
