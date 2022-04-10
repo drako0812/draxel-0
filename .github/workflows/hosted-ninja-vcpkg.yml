@@ -31,7 +31,7 @@ jobs:
       - name: Install Additional Dependencies
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get install libglx-dev libgl-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev libfreetype-dev libopus-dev libopusfile-dev libstb-dev
+            sudo apt-get install libglx-dev libgl-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev libfreetype-dev libopus-dev libopusfile-dev libstb-dev libxcursor-dev
           fi
         shell: bash
     
