@@ -12,12 +12,6 @@
     "sol2",
     "boost-predef",
     "teemo",
-    "zlib",
-    "opengl",
-    {
-      "name": "glad",
-      "features": ["glx"],
-      "platform": "linux"
-    }
+    "zlib"
   ]
 }
