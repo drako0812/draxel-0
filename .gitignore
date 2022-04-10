@@ -36,7 +36,10 @@
 .vscode
 build
 build-release.bat
+build-debug.bat
+build-all.bat
 release-windows-x64
 release-windows-x86
 release-linux-x64
 release-linux-x86
+copy_data_files.bat

@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <sol/sol.hpp>
+#include <filesystem>
 
 namespace pxly {
 
@@ -23,6 +24,8 @@ namespace pxly {
         sol::state m_Lua;
         sol::protected_function m_Script;
         bool m_InScript;
+        std::filesystem::path m_Cwd;
+        InternalKeyboard m_IKb;
 
         Machine();
         ~Machine();
@@ -30,6 +33,8 @@ namespace pxly {
         bool Run();
         void Update();
         void Render();
+        std::string Cwd() const;
+        bool Cwd(const std::string & path);
 
         static Machine * Instance;
 

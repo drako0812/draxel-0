@@ -26,6 +26,10 @@ if(DEFINED VCPKG_ROOT)
     endif()
 endif()
 
+if(WIN32)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -51,6 +55,9 @@ find_package(effolkronium_random CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(Lua REQUIRED)
 find_package(sol2 CONFIG REQUIRED)
+find_package(teemo CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
+find_path(BOOST_INCLUDE_DIR "boost/predef.h")
 
 set(SFML_BUILD_WINDOW ON)
 set(SFML_BUILD_GRAPHICS ON)
@@ -82,6 +89,7 @@ target_include_directories(Pixelly
     PRIVATE
         ${CMAKE_SOURCE_DIR}/include
         ${LUA_INCLUDE_DIR}
+        ${BOOST_INCLUDE_DIRS}
 )
 target_compile_features(Pixelly PUBLIC cxx_std_20)
 target_compile_features(Pixelly PUBLIC c_std_17)
@@ -92,18 +100,31 @@ target_link_libraries(Pixelly
         sfml-window
         sfml-graphics
         sfml-audio
-        #squirrel::squirrel
-        #squirrel::sqstdlib
-        #squirrel::sqmodules
         effolkronium_random
         fmt::fmt
         ${LUA_LIBRARIES}
         sol2::sol2
+        teemo
+        ZLIB::ZLIB
 )
 if(CMAKE_BUILD_TYPE EQUAL "Debug")
     target_compile_definitions(Pixelly PUBLIC PXLY_DEBUG)
 endif()
 
-add_custom_command(TARGET Pixelly POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:Pixelly>/data)
+set(PXLY_DATA_FILES
+    data/fonts/unscii-8-alt-mod.otf
+    data/fonts/unscii-8-fantasy-mod.otf
+    data/fonts/unscii-8-mcr-mod.otf
+    data/fonts/unscii-8-mod.otf
+    data/fonts/unscii-8-thin-mod.otf
+    data/scripts/lua/boot.lua
+)
+
+foreach(PXLY_DATA_FILE ${PXLY_DATA_FILES})
+    add_custom_command(TARGET Pixelly POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_SOURCE_DIR}/${PXLY_DATA_FILE}
+            ${CMAKE_BINARY_DIR}/${PXLY_DATA_FILE}
+        BYPRODUCTS ${CMAKE_BINARY_DIR}/${PXLY_DATA_FILE}
+    )
+endforeach()

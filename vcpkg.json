@@ -9,6 +9,9 @@
       "name": "lua",
       "features": ["cpp"]
     },
-    "sol2"
+    "sol2",
+    "boost-predef",
+    "teemo",
+    "zlib"
   ]
 }

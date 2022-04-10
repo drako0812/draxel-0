@@ -1,4 +1,5 @@
 #include "gpu.hpp"
+#include "SFML/Graphics/Sprite.hpp"
 #include "base.hpp"
 #include "machine.hpp"
 #include <SFML/Graphics.hpp>
@@ -165,7 +166,7 @@ namespace pxly {
                 int  yy = y * GpuTextureHeight;
                 auto glyph = machine->m_Font.getGlyph(ch.ch, 8, false);
                 //charSprite.setOrigin(0, 0);
-                charSprite.setPosition(xx, yy + (8 - glyph.bounds.height));
+                charSprite.setPosition(xx + glyph.bounds.left, yy + (8 + glyph.bounds.top));
                 charSprite.setTextureRect(glyph.textureRect);
                 charSprite.setColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[ch.fg]));
                 rectShape.setPosition(xx, yy);
@@ -178,7 +179,7 @@ namespace pxly {
         if (IsCursorEnabled()) {
             auto glyph = machine->m_Font.getGlyph(GetCursorChar(), 8, false);
             //charSprite.setOrigin(0, -2);
-            charSprite.setPosition(GetCursorX() * GpuTextureWidth, (GetCursorY() * GpuTextureHeight) + (8 - glyph.bounds.height));
+            charSprite.setPosition((GetCursorX() * GpuTextureWidth) + glyph.bounds.left, (GetCursorY() * GpuTextureHeight) + (8 + glyph.bounds.top));
             charSprite.setTextureRect(glyph.textureRect);
             charSprite.setColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[GetCursorColor()]));
             machine->m_RTex.draw(charSprite);
@@ -212,12 +213,15 @@ namespace pxly {
     }
 
     void Gpu::Render(Machine * machine) {
+        static float xscale = static_cast<float>(machine->m_Win.getSize().x) / GpuPixelWidth;
+        static float yscale = static_cast<float>(machine->m_Win.getSize().y) / GpuPixelHeight;
         switch (m_Mode) {
         case GpuMode::Text: m_TextMode.Render(machine); break;
         default: pxly_assert(false, fmt::format("Invalid GPU Mode: {}", static_cast<int>(m_Mode))); break;
         }
         machine->m_RTex.display();
         sf::Sprite rtexspr(machine->m_RTex.getTexture());
+        rtexspr.setScale(xscale, yscale);
         machine->m_Win.draw(rtexspr);
     }
 

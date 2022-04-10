@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/predef.h>
+#include <cstdlib>
 #include <functional>
 #include <optional>
 #include <string>
@@ -10,6 +12,31 @@
 #endif
 
 namespace pxly {
+
+    inline std::string get_home_data_path() {
+        std::string base_home;
+#if BOOST_OS_WINDOWS
+#    if BOOST_PLAT_MINGW || BOOST_PLAT_MINGW32 || BOOST_PLAT_MINGW64
+        base_home = std::getenv("HOME");
+        base_home += "/.Pixelly";
+#    elif BOOST_PLAT_WINDOWS_DESKTOP
+        base_home = std::getenv("HOMEDRIVE");
+        base_home += std::getenv("HOMEPATH");
+        base_home += "\\AppData\\Local\\Pixelly";
+#    else
+#        error "This specific Windows platform is currently unsupported"
+#    endif
+#elif BOOST_OS_CYGWIN
+        base_home = std::getenv("HOME");
+        base_home += "/.Pixelly";
+#elif BOOST_OS_LINUX
+        base_home = std::getenv("HOME");
+        base_home += "/.Pixelly";
+#else
+#    error "Platform not currently supported"
+#endif
+        return base_home;
+    }
 
     using uint8 = std::uint8_t;
     using int16 = std::int16_t;

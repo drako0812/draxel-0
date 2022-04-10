@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base.hpp"
+#include <deque>
 
 namespace pxly {
 
@@ -16,6 +17,10 @@ namespace pxly {
         void HandleEvent(void * evt);
         bool Key(int key);
         bool KeyP(int key);
+    };
+
+    struct InternalKeyboard {
+        std::deque<char> m_CharPresses = {};
     };
 
 } // namespace pxly

@@ -8,12 +8,24 @@ namespace pxly {
     void Machine::registerLuaAPI() {
         auto & lua = m_Lua;
 
-        lua.open_libraries(
-          sol::lib::base, sol::lib::string, sol::lib::math, sol::lib::table, sol::lib::bit32, sol::lib::utf8);
+        lua.open_libraries(sol::lib::base,
+                           sol::lib::string,
+                           sol::lib::math,
+                           sol::lib::table,
+                           sol::lib::bit32,
+                           sol::lib::utf8,
+                           sol::lib::os,
+                           sol::lib::io,
+                           sol::lib::package,
+                           sol::lib::debug,
+                           sol::lib::coroutine);
 
         auto mod_gpu      = lua.create_named_table("gpu");
         auto mod_gpu_text = mod_gpu.create_named("text");
         auto mod_kb       = lua.create_named_table("kb");
+        auto mod_intern   = lua.create_named_table("intern");
+
+        lua.set_function("sync", [this]() { synchronize(); });
 
         mod_kb.set_function("keyp", [this](int key) {
             synchronize();
@@ -22,6 +34,23 @@ namespace pxly {
         mod_kb.set_function("key", [this](int key) {
             synchronize();
             return m_Kb.Key(key);
+        });
+        mod_kb.set_function("peekch", [this]() {
+            if (m_IKb.m_CharPresses.size() == 0) { /*synchronize();*/ return '\0'; }
+            auto ret = m_IKb.m_CharPresses.front();
+            /*synchronize();*/
+            return ret;
+        });
+        mod_kb.set_function("keych", [this]() {
+            if (m_IKb.m_CharPresses.size() == 0) { /*synchronize();*/ return '\0'; }
+            auto ret = m_IKb.m_CharPresses.front();
+            m_IKb.m_CharPresses.pop_front();
+            /*synchronize();*/
+            return ret;
+        });
+        mod_kb.set_function("flush", [this]() {
+            m_IKb.m_CharPresses.clear();
+            /*synchronize();*/
         });
 
         mod_gpu_text.set_function("csrx",
@@ -118,6 +147,15 @@ namespace pxly {
             synchronize();
             auto c = m_Gpu.m_TextMode.GetChar(x, y);
             return {static_cast<int>(c.fg), static_cast<int>(c.bg), c.ch};
+        });
+
+        mod_intern.set_function("get_cwd", [this]() {
+            synchronize();
+            return Cwd();
+        });
+        mod_intern.set_function("set_cwd", [this](const std::string & path) {
+            synchronize();
+            return Cwd(path);
         });
     }
 
