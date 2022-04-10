@@ -10,8 +10,6 @@
       "features": ["cpp"]
     },
     "sol2",
-    "boost-predef",
-    "teemo",
-    "zlib"
+    "boost-predef"
   ]
 }
