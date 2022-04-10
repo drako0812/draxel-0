@@ -31,7 +31,7 @@ jobs:
       - name: Install Additional Dependencies
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get install libglx-dev
+            sudo apt-get install libglx-dev libgl-dev
           fi
         shell: bash
     
