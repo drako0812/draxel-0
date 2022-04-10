@@ -55,8 +55,6 @@ find_package(effolkronium_random CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(Lua REQUIRED)
 find_package(sol2 CONFIG REQUIRED)
-find_package(teemo CONFIG REQUIRED)
-find_package(ZLIB REQUIRED)
 find_path(BOOST_INCLUDE_DIR "boost/predef.h")
 
 set(SFML_BUILD_WINDOW ON)
