@@ -93,19 +93,31 @@ target_include_directories(Pixelly
 )
 target_compile_features(Pixelly PUBLIC cxx_std_20)
 target_compile_features(Pixelly PUBLIC c_std_17)
-target_link_libraries(Pixelly
-    PRIVATE
+
+if(UNIX AND NOT APPLE)
+    set(PXLY_SFML_LIBRARIES
+        sfml-system
+        sfml-window
+        sfml-graphics
+        sfml-audio
+    )
+else()
+    set(PXLY_SFML_LIBRARIES
         sfml-main
         sfml-system
         sfml-window
         sfml-graphics
         sfml-audio
+    )
+endif()
+
+target_link_libraries(Pixelly
+    PRIVATE
+        ${PXLY_SFML_LIBRARIES}
         effolkronium_random
         fmt::fmt
         ${LUA_LIBRARIES}
         sol2::sol2
-        teemo
-        ZLIB::ZLIB
 )
 if(CMAKE_BUILD_TYPE EQUAL "Debug")
     target_compile_definitions(Pixelly PUBLIC PXLY_DEBUG)
