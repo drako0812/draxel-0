@@ -13,7 +13,7 @@
     "boost-predef",
     "teemo",
     "zlib",
-    "opengl"
+    "opengl",
     {
       "name": "glad",
       "features": ["glx"],
