@@ -27,6 +27,8 @@ namespace pxly {
                     "Unable to load font 'data/fonts/unscii-8-mod.otf'");
         pxly_assert(m_Gpu.Initialize(), "Failed to initialize Pixelly GPU");
         pxly_assert(m_Kb.Initialize(), "Failed to initialize Pixelly Keyboard");
+        pxly_assert(m_Gp.Initialize(), "Failed to initialize Pixelly GamePad");
+        pxly_assert(m_Mouse.Initialize(), "Failed to initialize Pixelly Mouse");
         m_IKb.m_CharPresses.clear();
 
         m_Lua = sol::state();
@@ -48,8 +50,10 @@ namespace pxly {
         if (!std::filesystem::exists(m_Cwd)) {
             try {
                 std::filesystem::create_directories(m_Cwd);
-            } catch(std::filesystem::filesystem_error & e) {
-                pxly_assert(false, fmt::format("Failed to create storage directory '{}', exception: {}", m_Cwd.string(), e.what()));
+            } catch (std::filesystem::filesystem_error & e) {
+                pxly_assert(
+                  false,
+                  fmt::format("Failed to create storage directory '{}', exception: {}", m_Cwd.string(), e.what()));
             }
             // pxly_assert(std::filesystem::create_directory(m_Cwd),
             //             fmt::format("Failed to create storage directory '{}'", m_Cwd.string()));
@@ -72,17 +76,19 @@ namespace pxly {
             //m_Script = nullptr;
             m_Script.abandon();
             m_InScript = false;
-            m_Running = false;
+            m_Running  = false;
         }
 
-        while(m_IKb.m_CharPresses.size() > 32) {
-            m_IKb.m_CharPresses.pop_front();
-        }
+        while (m_IKb.m_CharPresses.size() > 32) { m_IKb.m_CharPresses.pop_front(); }
         m_Kb.StartFrame();
+        m_Gp.StartFrame();
+        m_Mouse.StartFrame();
 
         sf::Event event;
         while (m_Win.pollEvent(event)) {
             m_Kb.HandleEvent(&event);
+            m_Gp.HandleEvent(&event);
+            m_Mouse.HandleEvent(&event);
             switch (event.type) {
             case sf::Event::Closed: return false; break;
             case sf::Event::TextEntered:

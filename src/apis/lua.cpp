@@ -29,11 +29,9 @@ namespace pxly {
         lua.set_function("sync", [this]() { synchronize(); });
         lua.set_function("exec", [this, &lua](const std::string & path) {
             auto spath = std::filesystem::weakly_canonical((m_Cwd / std::filesystem::path(path)));
-            if(std::filesystem::exists(spath)) {
+            if (std::filesystem::exists(spath)) {
                 auto result = lua.do_file(spath.string());
-                if(result.valid()) {
-                    return true;
-                }
+                if (result.valid()) { return true; }
             }
             return false;
         });

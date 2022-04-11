@@ -1,8 +1,9 @@
 #include "base.hpp"
 #include "machine.hpp"
 #include <filesystem>
-#include <vector>
 #include <tuple>
+#include <vector>
+
 
 namespace pxly {
 
@@ -25,8 +26,8 @@ namespace pxly {
             using namespace std::string_literals;
             sol::table rett = machine.m_Lua.create_table();
             //std::vector<std::pair<std::string, std::string>> ret = {};
-            for(const auto & entry : std::filesystem::directory_iterator{machine.m_Cwd}) {
-                if(entry.is_directory()) {
+            for (const auto & entry : std::filesystem::directory_iterator{machine.m_Cwd}) {
+                if (entry.is_directory()) {
                     sol::table temp = machine.m_Lua.create_table();
                     temp.add("directory");
                     temp.add(entry.path().filename().string());
@@ -34,14 +35,14 @@ namespace pxly {
                     rett.add(temp);
                     //ret.push_back({"directory"s, (*(entry.path().end()--)).string()});
                 } else {
-                    sol::table temp = machine.m_Lua.create_table();
-                    auto filepath = entry.path();
-                    if(filepath.has_extension()) {
-                        if(filepath.extension() == ".lua") {
+                    sol::table temp     = machine.m_Lua.create_table();
+                    auto       filepath = entry.path();
+                    if (filepath.has_extension()) {
+                        if (filepath.extension() == ".lua") {
                             temp.add("lua");
                             temp.add(filepath.stem().string() + filepath.extension().string());
                             //ret.push_back({"lua"s, filepath.stem().string() + filepath.extension().string()});
-                        } else if(filepath.extension() == ".pxly") {
+                        } else if (filepath.extension() == ".pxly") {
                             temp.add("cart");
                             temp.add(filepath.stem().string() + filepath.extension().string());
                             //ret.push_back({"cart"s, filepath.stem().string() + filepath.extension().string()});
@@ -62,33 +63,23 @@ namespace pxly {
         });
         mod_intern.set_function("mkdir", [&machine](const std::string & p) {
             std::filesystem::path path = std::filesystem::weakly_canonical(machine.m_Cwd / p);
-            if (std::filesystem::exists(path)) { 
-                return false;
-            }
-            if(std::filesystem::create_directories(path)) {
+            if (std::filesystem::exists(path)) { return false; }
+            if (std::filesystem::create_directories(path)) {
                 return true;
             } else {
                 return false;
             }
         });
-        mod_intern.set_function("delete_file", [&machine](const std::string & f){
+        mod_intern.set_function("delete_file", [&machine](const std::string & f) {
             std::filesystem::path path = std::filesystem::weakly_canonical(machine.m_Cwd / f);
-            if(!std::filesystem::exists(path)) {
-                return false;
-            }
-            if(!std::filesystem::is_regular_file(path)) {
-                return false;
-            }
+            if (!std::filesystem::exists(path)) { return false; }
+            if (!std::filesystem::is_regular_file(path)) { return false; }
             return std::filesystem::remove(path);
         });
-        mod_intern.set_function("delete_dir", [&machine](const std::string & d){
+        mod_intern.set_function("delete_dir", [&machine](const std::string & d) {
             std::filesystem::path path = std::filesystem::weakly_canonical(machine.m_Cwd / d);
-            if(!std::filesystem::exists(path)) {
-                return false;
-            }
-            if(!std::filesystem::is_directory(path)) {
-                return false;
-            }
+            if (!std::filesystem::exists(path)) { return false; }
+            if (!std::filesystem::is_directory(path)) { return false; }
             return std::filesystem::remove_all(path) > 0;
         });
     }
