@@ -8,6 +8,7 @@ end
 package_path = package_path .. "data/scripts/lua/?.lua;data/scripts/lua/?/init.lua;data/scripts/lua/pxly/?.lua;data/scripts/lua/pxly/?/init.lua;data/scripts/lua/libs/?.lua;data/scripts/lua/libs/?/init.lua"
 package.path = package_path
 local cli = require("cli")
+--local inspect = require("inspect").inspect
 
 local color_ramp = { 9, 10, 11, 12, 13, 14, 15 }
 local function print_rainbow(text, index)
