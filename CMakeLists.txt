@@ -82,6 +82,9 @@ add_executable(Pixelly
     src/input.cpp
     src/machine.cpp
     src/apis/lua.cpp
+    src/apis/lua/gpu.cpp
+    src/apis/lua/input.cpp
+    src/apis/lua/intern.cpp
 )
 target_include_directories(Pixelly
     PRIVATE

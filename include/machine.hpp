@@ -35,11 +35,11 @@ namespace pxly {
         void Render();
         std::string Cwd() const;
         bool Cwd(const std::string & path);
+        void synchronize();
 
         static Machine * Instance;
 
       protected:
-        void synchronize();
         void registerLuaAPI();
     };
 
