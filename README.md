@@ -3,6 +3,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/drako0812/Pixelly)](https://github.com/drako0812/Pixelly/stargazers)
 [![GitHub commits since tagged version](https://img.shields.io/github/commits-since/drako0812/Pixelly/0.1.0-pre-alpha/master?include_prereleases)](https://github.com/drako0812/Pixelly/commits/master)
 [![License](https://img.shields.io/github/license/drako0812/Pixelly)](LICENSE)
+[![hosted-ninja-vcpkg-autocache](https://github.com/drako0812/Pixelly/actions/workflows/hosted-ninja-vcpkg.yml/badge.svg)](https://github.com/drako0812/Pixelly/actions/workflows/hosted-ninja-vcpkg.yml)
 
 # :video_game: Pixelly
 
