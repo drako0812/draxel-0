@@ -11,7 +11,13 @@
 #   described by the vcpkg.json manifest file. It will be a no-op if those are restored from cache.
 # - Finally builds the sources with Ninja.
 name: hosted-ninja-vcpkg-autocache
-on: [push, workflow_dispatch]
+on:
+  push:
+    paths-ignore:
+      - 'data/**'
+      - 'README.md'
+      - 'LICENSE'
+  workflow_dispatch: {}
 
 jobs:
   job:
