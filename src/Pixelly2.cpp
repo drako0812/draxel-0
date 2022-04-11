@@ -17,8 +17,7 @@
 int main() {
     auto machine = std::make_shared<pxly::Machine>();
     pxly_assert(machine->Initialize(), "Failed to create Pixelly machine");
-    while (machine->Run()) {
-    }
+    while (machine->Run()) {}
     machine = nullptr;
 
     return EXIT_SUCCESS;

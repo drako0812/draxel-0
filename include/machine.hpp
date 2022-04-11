@@ -14,6 +14,8 @@ namespace pxly {
         // Internal Resources
         Gpu      m_Gpu;
         Keyboard m_Kb;
+        GamePad m_Gp;
+        Mouse m_Mouse;
 
         // External Resources
         sf::RenderWindow  m_Win;

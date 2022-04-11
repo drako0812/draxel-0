@@ -161,9 +161,9 @@ namespace pxly {
 
         for (int y = 0; y < GpuTextCellsHeight; y++) {
             for (int x = 0; x < GpuTextCellsWidth; x++) {
-                auto ch = GetChar(x, y);
-                int  xx = x * GpuTextureWidth;
-                int  yy = y * GpuTextureHeight;
+                auto ch    = GetChar(x, y);
+                int  xx    = x * GpuTextureWidth;
+                int  yy    = y * GpuTextureHeight;
                 auto glyph = machine->m_Font.getGlyph(ch.ch, 8, false);
                 //charSprite.setOrigin(0, 0);
                 charSprite.setPosition(xx + glyph.bounds.left, yy + (8 + glyph.bounds.top));
@@ -179,7 +179,8 @@ namespace pxly {
         if (IsCursorEnabled()) {
             auto glyph = machine->m_Font.getGlyph(GetCursorChar(), 8, false);
             //charSprite.setOrigin(0, -2);
-            charSprite.setPosition((GetCursorX() * GpuTextureWidth) + glyph.bounds.left, (GetCursorY() * GpuTextureHeight) + (8 + glyph.bounds.top));
+            charSprite.setPosition((GetCursorX() * GpuTextureWidth) + glyph.bounds.left,
+                                   (GetCursorY() * GpuTextureHeight) + (8 + glyph.bounds.top));
             charSprite.setTextureRect(glyph.textureRect);
             charSprite.setColor(convert(machine->m_Gpu.m_Palettes[0].m_Colors[GetCursorColor()]));
             machine->m_RTex.draw(charSprite);
