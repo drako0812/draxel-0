@@ -27,6 +27,7 @@ namespace pxly {
         sol::protected_function m_Script;
         bool m_InScript;
         std::filesystem::path m_Cwd;
+        InternalGpu m_IGpu;
         InternalKeyboard m_IKb;
 
         Machine();

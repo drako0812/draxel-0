@@ -66,6 +66,8 @@ set(SFML_BUILD_TEST_SUITE OFF)
 set(SFML_ENABLE_COVERAGE OFF)
 add_subdirectory(deps/SFML)
 
+add_subdirectory(deps/gcem)
+
 #add_compile_definitions(_SQ64)
 #add_subdirectory(deps/quirrel)
 
@@ -112,6 +114,10 @@ else()
     )
 endif()
 
+if(WIN32)
+    target_compile_options(Pixelly PRIVATE "/bigobj")
+endif()
+
 target_link_libraries(Pixelly
     PRIVATE
         ${PXLY_SFML_LIBRARIES}
@@ -119,6 +125,7 @@ target_link_libraries(Pixelly
         fmt::fmt
         ${LUA_LIBRARIES}
         sol2::sol2
+        gcem
 )
 if(CMAKE_BUILD_TYPE EQUAL "Debug")
     target_compile_definitions(Pixelly PUBLIC PXLY_DEBUG)

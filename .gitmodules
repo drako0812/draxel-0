@@ -1,3 +1,6 @@
 [submodule "deps/SFML"]
 	path = deps/SFML
 	url = https://github.com/SFML/SFML
+[submodule "deps/gcem"]
+	path = deps/gcem
+	url = https://github.com/kthohr/gcem

@@ -3,6 +3,7 @@
 #include <boost/predef.h>
 #include <cstdlib>
 #include <functional>
+#include <gcem.hpp>
 #include <optional>
 #include <string>
 #include <version>
@@ -64,12 +65,20 @@ namespace pxly {
     constexpr int GpuPixelBufferCount = GpuPixelWidth * GpuPixelHeight;
     constexpr int GpuPixelSize        = 4;
     constexpr int GpuPixelBufferBytes = ((GpuPixelBufferCount * GpuPixelSize) / 8);
-    constexpr int GpuPixelsToBytes(int pixels) { return (pixels * GpuPixelSize) / 8; }
+    constexpr int GpuPixelsToBytes(int pixels, int bits_per_pixel) { return (pixels * bits_per_pixel) / 8; }
     constexpr int GpuTextureWidth    = 8;
     constexpr int GpuTextureHeight   = 8;
     constexpr int GpuTexturePages    = 16;
     constexpr int GpuTexturesPerPage = 256;
+    constexpr int GpuTotalTextures   = GpuTexturesPerPage * GpuTexturePages;
     constexpr int GpuPaletteSize     = 16;
     constexpr int GpuPaletteCount    = 1;
+    constexpr int GpuGlobalTextureWidth =
+      gcem::sqrt(GpuTexturePages) * gcem::sqrt(GpuTexturesPerPage) * GpuTextureWidth;
+    constexpr int GpuGlobalTextureHeight = GpuGlobalTextureWidth;
+    constexpr int GpuTexturePagePixelWidth = gcem::sqrt(GpuTexturesPerPage) * GpuTextureWidth;
+    constexpr int GpuTexturePagePixelHeight = gcem::sqrt(GpuTexturesPerPage) * GpuTextureHeight;
+    constexpr int GpuTexturesPerPageLine = gcem::sqrt(GpuTexturesPerPage);
+    constexpr int GpuTexturesPerPageColumn = GpuTexturesPerPageLine;
 
 } // namespace pxly
