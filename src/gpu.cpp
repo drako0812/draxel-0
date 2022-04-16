@@ -489,7 +489,9 @@ namespace pxly {
         }
     }
 
-    void PixelMode_384x216x4_Indexed::Spr(Machine * machine, int x, int y, int index, int sw, int sh, int dw, int dh) {}
+    void PixelMode_384x216x4_Indexed::Spr(Machine * machine, int x, int y, int index, int sw, int sh, int dw, int dh) {
+        
+    }
 
     void PixelMode_384x216x4_Indexed::Spr(
       Machine * machine, int x, int y, int index, int key, int sw, int sh, int dw, int dh) {}

@@ -48,3 +48,8 @@ debug-linux-x64
 debug-linux-x86
 copy_data_files.bat
 CMakeUserPresets.json
+.vs
+*.log
+vcpkg_installed
+x64
+*.vcxproj.user
