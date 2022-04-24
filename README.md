@@ -1,22 +1,22 @@
-[![GitHub Contributors](https://img.shields.io/github/contributors/drako0812/Pixelly)](https://github.com/drako0812/Pixelly/contributors)
-[![GitHub Releases Downloads](https://img.shields.io/github/downloads/drako0812/Pixelly/total)](https://github.com/drako0812/Pixelly/releases)
-[![GitHub Stars](https://img.shields.io/github/stars/drako0812/Pixelly)](https://github.com/drako0812/Pixelly/stargazers)
-[![GitHub commits since tagged version](https://img.shields.io/github/commits-since/drako0812/Pixelly/0.1.0-pre-alpha/master?include_prereleases)](https://github.com/drako0812/Pixelly/commits/master)
-[![License](https://img.shields.io/github/license/drako0812/Pixelly)](LICENSE)
-[![hosted-ninja-vcpkg-autocache](https://github.com/drako0812/Pixelly/actions/workflows/hosted-ninja-vcpkg.yml/badge.svg)](https://github.com/drako0812/Pixelly/actions/workflows/hosted-ninja-vcpkg.yml)
+[![GitHub Contributors](https://img.shields.io/github/contributors/drako0812/draxel-0)](https://github.com/drako0812/draxel-0/contributors)
+[![GitHub Releases Downloads](https://img.shields.io/github/downloads/drako0812/draxel-0/total)](https://github.com/drako0812/draxel-0/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/drako0812/draxel-0)](https://github.com/drako0812/draxel-0/stargazers)
+[![GitHub commits since tagged version](https://img.shields.io/github/commits-since/drako0812/draxel-0/0.1.0-pre-alpha/master?include_prereleases)](https://github.com/drako0812/draxel-0/commits/master)
+[![License](https://img.shields.io/github/license/drako0812/draxel-0)](LICENSE)
+[![hosted-ninja-vcpkg-autocache](https://github.com/drako0812/draxel-0/actions/workflows/hosted-ninja-vcpkg.yml/badge.svg)](https://github.com/drako0812/draxel-0/actions/workflows/hosted-ninja-vcpkg.yml)
 
-# :video_game: Pixelly
+# :video_game: draxel-0
 
-> **NOTE:** *Pixelly* is a WIP name for this project. I would like to come up with a catchier name in the near future. I also have not investigated
+> **NOTE:** *draxel-0* is a WIP name for this project. I would like to come up with a catchier name in the near future. I also have not investigated
 > whether or not the name is used for anything else, yet.
 
-*Pixelly* is a [Fantasy Console/Computer](https://en.wikipedia.org/wiki/Fantasy_video_game_console) which has been developed in modern C++ (up to and including C++20). It currently uses [SFML2](https://github.com/SFML/SFML) for its backend, and [Lua](https://lua.org) via [Sol](https://sol2.rtfd.io) for scripting. Although, I'd like to support both more backends and more scripting languages in the future.
+*draxel-0* is a [Fantasy Console/Computer](https://en.wikipedia.org/wiki/Fantasy_video_game_console) which has been developed in modern C++ (up to and including C++20). It currently uses [SFML2](https://github.com/SFML/SFML) for its backend, and [Lua](https://lua.org) via [Sol](https://sol2.rtfd.io) for scripting. Although, I'd like to support both more backends and more scripting languages in the future.
 
 ## :memo: Specifications
 
 ### :art: Graphics
 
-*Pixelly* has a 384x216 pixel screen resolution.
+*draxel-0* has a 384x216 pixel screen resolution.
 
 Currently, it only has a 48x27 text display mode, but pixel display modes are definitely planned.
 
@@ -24,26 +24,26 @@ It has a 16-color palette that will be modifiable (but not currently).
 
 ### :keyboard: Input
 
-Currently, *Pixelly* can only accept keyboard input, but support for mouse and gamepad input is on the todo list.
+Currently, *draxel-0* can only accept keyboard input, but support for mouse and gamepad input is on the todo list.
 
 ## :books: Documentation
 
-You can find detailed documentation for *Pixelly* on the [Wiki](https://github.com/drako0812/Pixelly/wiki).
+You can find detailed documentation for *draxel-0* on the [Wiki](https://github.com/drako0812/draxel-0/wiki).
 
 ## :hammer: Building
 
-I've spent quite a while trying to make sure that *Pixelly* is as simple to build as possible, but as additional features are added it's possible it may become more difficult.
+I've spent quite a while trying to make sure that *draxel-0* is as simple to build as possible, but as additional features are added it's possible it may become more difficult.
 
-This should be how to build *Pixelly* on at least **Windows** and **Linux**:
+This should be how to build *draxel-0* on at least **Windows** and **Linux**:
 
 - Make sure you have a modern C++ compiler installed (ie. MSVC, GCC, or Clang)
 - Install [vcpkg](https://github.com/Microsoft/vcpkg)
 - Install [CMake](https://cmake.org)
 - Install [git](https://git-scm.com)
-- Build *Pixelly*:
+- Build *draxel-0*:
   ```bat
-  git clone https://github.com/drako0812/Pixelly
-  cd Pixelly
+  git clone https://github.com/drako0812/draxel-0
+  cd draxel-0
   git submodule init
   git submodule update
   mkdir build
@@ -51,12 +51,12 @@ This should be how to build *Pixelly* on at least **Windows** and **Linux**:
   cmake --build build
   ```
   You might also want to pass `-DCMAKE_BUILD_TYPE=Release` to `cmake` to build in *Release* mode.
-- Now you should be able to run *Pixelly*
+- Now you should be able to run *draxel-0*
   ```bat
   cd build
 
-  ./Pixelly.exe
+  ./draxel-0.exe
   --OR--
-  ./Pixelly
+  ./draxel-0
   ```
 - After building you should be able to move the contents of the `build` directory to wherever you want.

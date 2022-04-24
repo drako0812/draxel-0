@@ -12,27 +12,27 @@
 #    include <source_location>
 #endif
 
-namespace pxly {
+namespace drxl {
 
     inline std::string get_home_data_path() {
         std::string base_home;
 #if BOOST_OS_WINDOWS
 #    if BOOST_PLAT_MINGW || BOOST_PLAT_MINGW32 || BOOST_PLAT_MINGW64
         base_home = std::getenv("HOME");
-        base_home += "/.Pixelly";
+        base_home += "/.draxel-0";
 #    elif BOOST_PLAT_WINDOWS_DESKTOP
         base_home = std::getenv("HOMEDRIVE");
         base_home += std::getenv("HOMEPATH");
-        base_home += "\\AppData\\Local\\Pixelly";
+        base_home += "\\AppData\\Local\\draxel-0";
 #    else
 #        error "This specific Windows platform is currently unsupported"
 #    endif
 #elif BOOST_OS_CYGWIN
         base_home = std::getenv("HOME");
-        base_home += "/.Pixelly";
+        base_home += "/.draxel-0";
 #elif BOOST_OS_LINUX
         base_home = std::getenv("HOME");
-        base_home += "/.Pixelly";
+        base_home += "/.draxel-0";
 #else
 #    error "Platform not currently supported"
 #endif
@@ -48,11 +48,11 @@ namespace pxly {
     void assert_(bool                                        condition,
                  std::optional<std::function<std::string()>> func       = std::nullopt,
                  const std::source_location                  location__ = std::source_location::current());
-#    define pxly_assert(__condition__, __message__) pxly::assert_(__condition__, [&]() { return __message__; })
+#    define drxl_assert(__condition__, __message__) drxl::assert_(__condition__, [&]() { return __message__; })
 #else
     void assert_(bool condition, std::optional<std::function<std::string()>> func, const char * file__, int line__);
-#    define pxly_assert(__condition__, __message__) \
-        pxly::assert_(                              \
+#    define drxl_assert(__condition__, __message__) \
+        drxl::assert_(                              \
           __condition__, [&]() { return __message__; }, (__FILE__), (__LINE__))
 #endif
 
@@ -81,4 +81,4 @@ namespace pxly {
     constexpr int GpuTexturesPerPageLine = gcem::sqrt(GpuTexturesPerPage);
     constexpr int GpuTexturesPerPageColumn = GpuTexturesPerPageLine;
 
-} // namespace pxly
+} // namespace drxl

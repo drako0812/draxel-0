@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-namespace pxly {
+namespace drxl {
 
     void RegisterLuaAPI_gpu(Machine & machine);
     void RegisterLuaAPI_input(Machine & machine);
@@ -40,4 +40,4 @@ namespace pxly {
         RegisterLuaAPI_gpu(*this);
     }
 
-} // namespace pxly
+} // namespace drxl

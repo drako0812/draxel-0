@@ -4,13 +4,13 @@
 #include <cstring>
 #include <fmt/format.h>
 
-namespace pxly {
+namespace drxl {
 
     bool getBit(int index, const uint8 * arr, int size) {
         auto byte_index = index / 8;
         auto bit_index  = index % 8;
 
-        pxly_assert(byte_index < size, fmt::format("byte_index ({}) out of bounds, array size {}", byte_index, size));
+        drxl_assert(byte_index < size, fmt::format("byte_index ({}) out of bounds, array size {}", byte_index, size));
 
         auto value = arr[byte_index];
         auto bit   = 1 & (value >> bit_index);
@@ -21,7 +21,7 @@ namespace pxly {
         auto byte_index = index / 8;
         auto bit_index  = index % 8;
 
-        pxly_assert(byte_index < size, fmt::format("byte_index ({}) out of bounds, array size {}", byte_index, size));
+        drxl_assert(byte_index < size, fmt::format("byte_index ({}) out of bounds, array size {}", byte_index, size));
 
         auto ovalue     = arr[byte_index];
         auto mask       = ~(1 << bit_index);
@@ -219,4 +219,4 @@ namespace pxly {
 
     int8 Mouse::MScroll() const { return m_Mouse.m_Scroll; }
 
-} // namespace pxly
+} // namespace drxl

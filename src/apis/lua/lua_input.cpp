@@ -2,7 +2,7 @@
 
 #define KEY(__name__) #__name__, sf::Keyboard::__name__
 
-namespace pxly {
+namespace drxl {
 
     void RegisterLuaAPI_input(Machine & machine) {
         auto & lua    = machine.m_Lua;
@@ -101,6 +101,6 @@ namespace pxly {
         );
     }   
 
-} // namespace pxly
+} // namespace drxl
 
 #undef KEY

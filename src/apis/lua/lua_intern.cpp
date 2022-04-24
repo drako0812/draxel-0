@@ -5,7 +5,7 @@
 #include <vector>
 
 
-namespace pxly {
+namespace drxl {
 
     void RegisterLuaAPI_intern(Machine & machine) {
         auto & lua        = machine.m_Lua;
@@ -42,7 +42,7 @@ namespace pxly {
                             temp.add("lua");
                             temp.add(filepath.stem().string() + filepath.extension().string());
                             //ret.push_back({"lua"s, filepath.stem().string() + filepath.extension().string()});
-                        } else if (filepath.extension() == ".pxly") {
+                        } else if (filepath.extension() == ".drxl") {
                             temp.add("cart");
                             temp.add(filepath.stem().string() + filepath.extension().string());
                             //ret.push_back({"cart"s, filepath.stem().string() + filepath.extension().string()});
@@ -84,4 +84,4 @@ namespace pxly {
         });
     }
 
-} // namespace pxly
+} // namespace drxl

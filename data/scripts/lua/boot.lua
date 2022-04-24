@@ -1,11 +1,11 @@
--- This script set's up the user functionality of Pixelly. It is run in app mode, not cart mode.
+-- This script set's up the user functionality of draxel-0. It is run in app mode, not cart mode.
 
 -- Set up package path
 local package_path = package.path
 if package_path ~= "" then
     package_path = package_path .. ";"
 end
-package_path = package_path .. "data/scripts/lua/?.lua;data/scripts/lua/?/init.lua;data/scripts/lua/pxly/?.lua;data/scripts/lua/pxly/?/init.lua;data/scripts/lua/libs/?.lua;data/scripts/lua/libs/?/init.lua"
+package_path = package_path .. "data/scripts/lua/?.lua;data/scripts/lua/?/init.lua;data/scripts/lua/drxl/?.lua;data/scripts/lua/drxl/?/init.lua;data/scripts/lua/libs/?.lua;data/scripts/lua/libs/?/init.lua"
 package.path = package_path
 local cli = require("cli")
 --local inspect = require("inspect").inspect
@@ -26,9 +26,9 @@ end
 function boot_main()
     gpu.text.csren(false)
     cli.cls()
-    print_rainbow(">>>===[ PIXELLY ]===<<<\n", 0)
+    print_rainbow(">>>===[ draxel-0 ]===<<<\n", 0)
     print_rainbow("version 0.1.0\n", 1)
-    print_rainbow("https://github.com/drako0812/Pixelly\n", 2)
+    print_rainbow("https://github.com/drako0812/draxel-0\n", 2)
     cli.wait(2.0)
     gpu.text.csren(true)
 

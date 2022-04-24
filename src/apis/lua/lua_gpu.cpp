@@ -1,6 +1,6 @@
 #include "machine.hpp"
 
-namespace pxly {
+namespace drxl {
 
     void RegisterLuaAPI_gpu(Machine & machine) {
         auto & lua          = machine.m_Lua;
@@ -104,4 +104,4 @@ namespace pxly {
         });
     }
 
-} // namespace pxly
+} // namespace drxl

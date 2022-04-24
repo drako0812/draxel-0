@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(
-    Pixelly2
+    draxel-0
     VERSION 0.1.0
     LANGUAGES CXX C
 )
@@ -77,35 +77,41 @@ add_subdirectory(deps/gcem)
 #
 ###############################################################################
 
-add_executable(Pixelly
-    src/Pixelly2.cpp
+add_executable(draxel-0
+    src/draxel-0.cpp
     src/base.cpp
     src/gpu.cpp
+    src/gpu_textmode.cpp
+    src/gpu_palette.cpp
+    src/gpu_pixmode1.cpp
+    src/gpu_texture1.cpp
+    src/gpu_textures1.cpp
     src/input.cpp
     src/machine.cpp
     src/apis/lua.cpp
-    src/apis/lua/gpu.cpp
-    src/apis/lua/input.cpp
-    src/apis/lua/intern.cpp
+    src/apis/lua/lua_gpu.cpp
+    src/apis/lua/lua_input.cpp
+    src/apis/lua/lua_intern.cpp
 )
-target_include_directories(Pixelly
+target_include_directories(draxel-0
     PRIVATE
         ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/include/internal
         ${LUA_INCLUDE_DIR}
         ${BOOST_INCLUDE_DIRS}
 )
-target_compile_features(Pixelly PUBLIC cxx_std_20)
-target_compile_features(Pixelly PUBLIC c_std_17)
+target_compile_features(draxel-0 PUBLIC cxx_std_20)
+target_compile_features(draxel-0 PUBLIC c_std_17)
 
 if(UNIX AND NOT APPLE)
-    set(PXLY_SFML_LIBRARIES
+    set(DRXL_SFML_LIBRARIES
         sfml-system
         sfml-window
         sfml-graphics
         sfml-audio
     )
 else()
-    set(PXLY_SFML_LIBRARIES
+    set(DRXL_SFML_LIBRARIES
         sfml-main
         sfml-system
         sfml-window
@@ -115,12 +121,12 @@ else()
 endif()
 
 if(WIN32)
-    target_compile_options(Pixelly PRIVATE "/bigobj")
+    target_compile_options(draxel-0 PRIVATE "/bigobj" "/FAsu" "/Fa")
 endif()
 
-target_link_libraries(Pixelly
+target_link_libraries(draxel-0
     PRIVATE
-        ${PXLY_SFML_LIBRARIES}
+        ${DRXL_SFML_LIBRARIES}
         effolkronium_random
         fmt::fmt
         ${LUA_LIBRARIES}
@@ -128,10 +134,10 @@ target_link_libraries(Pixelly
         gcem
 )
 if(CMAKE_BUILD_TYPE EQUAL "Debug")
-    target_compile_definitions(Pixelly PUBLIC PXLY_DEBUG)
+    target_compile_definitions(draxel-0 PUBLIC DRXL_DEBUG)
 endif()
 
-set(PXLY_DATA_FILES
+set(DRXL_DATA_FILES
     data/fonts/unscii-8-alt-mod.otf
     data/fonts/unscii-8-fantasy-mod.otf
     data/fonts/unscii-8-mcr-mod.otf
@@ -140,11 +146,11 @@ set(PXLY_DATA_FILES
     data/scripts/lua/boot.lua
 )
 
-foreach(PXLY_DATA_FILE ${PXLY_DATA_FILES})
-    add_custom_command(TARGET Pixelly POST_BUILD
+foreach(DRXL_DATA_FILE ${DRXL_DATA_FILES})
+    add_custom_command(TARGET draxel-0 POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_SOURCE_DIR}/${PXLY_DATA_FILE}
-            ${CMAKE_BINARY_DIR}/${PXLY_DATA_FILE}
-        BYPRODUCTS ${CMAKE_BINARY_DIR}/${PXLY_DATA_FILE}
+            ${CMAKE_SOURCE_DIR}/${DRXL_DATA_FILE}
+            ${CMAKE_BINARY_DIR}/${DRXL_DATA_FILE}
+        BYPRODUCTS ${CMAKE_BINARY_DIR}/${DRXL_DATA_FILE}
     )
 endforeach()

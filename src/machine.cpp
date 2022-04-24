@@ -8,7 +8,7 @@
 #include <fmt/ostream.h>
 #include <sol/sol.hpp>
 
-namespace pxly {
+namespace drxl {
 
     Machine * Machine::Instance = nullptr;
 
@@ -18,17 +18,17 @@ namespace pxly {
 
     bool Machine::Initialize() {
         m_Win.create(sf::VideoMode(1152, 648),
-                     "Pixelly",
+                     "draxel-0",
                      sf::Style::Close | sf::Style::Resize | sf::Style::Titlebar,
                      sf::ContextSettings(0, 0, 0, 3, 2));
-        pxly_assert(m_RTex.create(GpuPixelWidth, GpuPixelHeight, sf::ContextSettings(0, 0, 0, 3, 2)),
+        drxl_assert(m_RTex.create(GpuPixelWidth, GpuPixelHeight, sf::ContextSettings(0, 0, 0, 3, 2)),
                     "Failed to create Render Texture");
-        pxly_assert(m_Font.loadFromFile("data/fonts/unscii-8-mod.otf"),
+        drxl_assert(m_Font.loadFromFile("data/fonts/unscii-8-mod.otf"),
                     "Unable to load font 'data/fonts/unscii-8-mod.otf'");
-        pxly_assert(m_Gpu.Initialize(), "Failed to initialize Pixelly GPU");
-        pxly_assert(m_Kb.Initialize(), "Failed to initialize Pixelly Keyboard");
-        pxly_assert(m_Gp.Initialize(), "Failed to initialize Pixelly GamePad");
-        pxly_assert(m_Mouse.Initialize(), "Failed to initialize Pixelly Mouse");
+        drxl_assert(m_Gpu.Initialize(), "Failed to initialize draxel-0 GPU");
+        drxl_assert(m_Kb.Initialize(), "Failed to initialize draxel-0 Keyboard");
+        drxl_assert(m_Gp.Initialize(), "Failed to initialize draxel-0 GamePad");
+        drxl_assert(m_Mouse.Initialize(), "Failed to initialize draxel-0 Mouse");
         m_IKb.m_CharPresses.clear();
 
         m_Lua = sol::state();
@@ -42,20 +42,20 @@ namespace pxly {
         sol::load_result script = m_Lua.load_file("data/scripts/lua/boot.lua");
         if (!script.valid()) {
             sol::error err = script;
-            pxly_assert(
+            drxl_assert(
               false, fmt::format("Failed to load boot script 'data/scripts/lua/boot.lua', with error: {}", err.what()));
         }
 
-        m_Cwd = std::filesystem::weakly_canonical((std::filesystem::path(pxly::get_home_data_path()) / "storage"));
+        m_Cwd = std::filesystem::weakly_canonical((std::filesystem::path(drxl::get_home_data_path()) / "storage"));
         if (!std::filesystem::exists(m_Cwd)) {
             try {
                 std::filesystem::create_directories(m_Cwd);
             } catch (std::filesystem::filesystem_error & e) {
-                pxly_assert(
+                drxl_assert(
                   false,
                   fmt::format("Failed to create storage directory '{}', exception: {}", m_Cwd.string(), e.what()));
             }
-            // pxly_assert(std::filesystem::create_directory(m_Cwd),
+            // drxl_assert(std::filesystem::create_directory(m_Cwd),
             //             fmt::format("Failed to create storage directory '{}'", m_Cwd.string()));
         }
 
@@ -71,7 +71,7 @@ namespace pxly {
             sol::protected_function_result result = m_Script();
             if (!result.valid()) {
                 sol::error err = result;
-                pxly_assert(false, fmt::format("Execution of boot script failed: {}", err.what()));
+                drxl_assert(false, fmt::format("Execution of boot script failed: {}", err.what()));
             }
             //m_Script = nullptr;
             m_Script.abandon();
@@ -154,4 +154,4 @@ namespace pxly {
         return false;
     }
 
-} // namespace pxly
+} // namespace drxl

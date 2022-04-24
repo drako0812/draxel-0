@@ -8,7 +8,7 @@
 #include <sol/sol.hpp>
 #include <filesystem>
 
-namespace pxly {
+namespace drxl {
 
     struct Machine {
         // Internal Resources
@@ -46,4 +46,4 @@ namespace pxly {
         void registerLuaAPI();
     };
 
-} // namespace pxly
+} // namespace drxl

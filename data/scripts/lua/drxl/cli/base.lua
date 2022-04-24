@@ -11,7 +11,7 @@ cli.__TextModeHeight = 27
 ---@param bg? integer
 ---@param clear_ch? string
 ---
---- Prints a single `char` to Pixelly's internal console
+--- Prints a single `char` to draxel-0's internal console
 function cli.printc(char, fg, bg, clear_ch)
     fg = fg or cli.__DefaultForegroundColor
     bg = bg or cli.__DefaultBackgroundColor
@@ -48,7 +48,7 @@ end
 ---@param bg? integer
 ---@param clear_ch? string
 ---
---- Prints `text` to Pixelly's internal console
+--- Prints `text` to draxel-0's internal console
 function cli.print(text, fg, bg, clear_ch)
     fg = fg or cli.__DefaultForegroundColor
     bg = bg or cli.__DefaultBackgroundColor
@@ -63,7 +63,7 @@ end
 ---@param bg? integer
 ---@param clear_ch? string
 ---
---- Clears Pixelly's internal console
+--- Clears draxel-0's internal console
 function cli.cls(bg, fg, clear_ch)
     fg = fg or cli.__DefaultForegroundColor
     bg = bg or cli.__DefaultBackgroundColor

@@ -3,7 +3,7 @@
 #include "base.hpp"
 #include <deque>
 
-namespace pxly {
+namespace drxl {
 
     struct Machine;
 
@@ -90,4 +90,4 @@ namespace pxly {
         std::deque<char> m_CharPresses = {};
     };
 
-} // namespace pxly
+} // namespace drxl

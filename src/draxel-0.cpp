@@ -15,8 +15,8 @@
 #include "machine.hpp"
 
 int main() {
-    auto machine = std::make_shared<pxly::Machine>();
-    pxly_assert(machine->Initialize(), "Failed to create Pixelly machine");
+    auto machine = std::make_shared<drxl::Machine>();
+    drxl_assert(machine->Initialize(), "Failed to create draxel-0 machine");
     while (machine->Run()) {}
     machine = nullptr;
 
